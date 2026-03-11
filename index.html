@@ -3,110 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fdmr Piyush | Cyber & Gaming Hub</title>
+    <title>Cyber Hub | FDMR Piyush</title>
     <style>
-        /* CSS Styling - Dark Cyberpunk/Gamer Theme */
         :root {
-            --bg-color: #0d1117; /* GitHub Dark Mode style background */
-            --accent-green: #00ff41; /* Hacker Green */
-            --accent-blue: #00e5ff; /* Gamer Cyan */
-            --text-main: #c9d1d9;
-            --panel-bg: #161b22;
+            --primary-green: #00ff41;
+            --bg-dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-main: #e0e0e0;
         }
 
         body {
-            margin: 0;
-            font-family: 'Courier New', Courier, monospace;
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* Top Navigation Bar */
-        .navbar {
+        /* Top Header */
+        header {
+            background: #000;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--panel-bg);
-            padding: 15px 30px;
-            border-bottom: 2px solid var(--accent-green);
-            box-shadow: 0 4px 10px rgba(0, 255, 65, 0.1);
+            border-bottom: 2px solid var(--primary-green);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        .brand {
+        .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--accent-green);
-            text-shadow: 0 0 5px var(--accent-green);
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* Search Bar */
-        .search-bar {
-            padding: 8px 15px;
-            border: 1px solid var(--accent-blue);
-            background-color: var(--bg-color);
+        .search-container input {
+            background: #222;
+            border: 1px solid #444;
             color: white;
-            border-radius: 4px;
-            outline: none;
-            font-family: inherit;
+            padding: 8px 15px;
+            border-radius: 20px;
+            width: 250px;
+            transition: 0.3s;
         }
-        
-        .search-bar:focus {
-            box-shadow: 0 0 8px var(--accent-blue);
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            width: 300px;
         }
 
         /* Settings Dropdown */
-        .dropdown {
+        .settings-dropdown {
             position: relative;
             display: inline-block;
         }
 
         .dropbtn {
-            background-color: transparent;
-            color: var(--text-main);
-            padding: 10px 15px;
-            font-size: 1rem;
-            border: 1px solid var(--text-main);
+            background: none;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 8px 16px;
             cursor: pointer;
-            border-radius: 4px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .dropbtn:hover {
-            color: var(--accent-blue);
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+            border-radius: 5px;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
             right: 0;
-            background-color: var(--panel-bg);
-            min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
-            border: 1px solid var(--accent-blue);
+            background-color: var(--card-bg);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
             z-index: 1;
-            border-radius: 4px;
-            margin-top: 5px;
+            border: 1px solid #333;
+        }
+
+        .dropdown-content h4 {
+            padding: 10px;
+            margin: 0;
+            background: #222;
+            font-size: 0.8rem;
+            color: #888;
         }
 
         .dropdown-content a {
-            color: var(--text-main);
+            color: white;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
-            border-bottom: 1px solid #30363d;
+            font-size: 0.9rem;
         }
 
-        .dropdown-content a:last-child {
-            border-bottom: none;
+        .dropdown-content a:hover { background-color: #333; color: var(--primary-green); }
+
+        .settings-dropdown:hover .dropdown-content { display: block; }
+
+        /* Main Content Grid */
+        .container {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .dropdown
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-green);
+            transition: transform 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        h2 { color: var(--primary-green); }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">By FDMR Piyush</div>
+    
+    <div class="search-container">
+        <input type="text" placeholder="Search tools, hacks, or games...">
+    </div>
+
+    <div class="settings-dropdown">
+        <button class="dropbtn">⚙ Settings & Modes</button>
+        <div class="dropdown-content">
+            <h4>SECURITY OPTIONS</h4>
+            <a href="#">Firewall Config</a>
+            <a href="#">VPN Tunneling</a>
+            <a href="#">Encrypted Storage</a>
+            <hr style="border:0.5px solid #333">
+            <h4>DEVELOPER TOOLS</h4>
+            <a href="#">API Console</a>
+            <a href="#">JSON Formatter</a>
+            <a href="#">Git Integrations</a>
+            <hr style="border:0.5px solid #333">
+            <h4>GAMER & EDITOR</h4>
+            <a href="#">High-FPS Mode</a>
+            <a href="#">Video Rendering</a>
+            <a href="#">Overlay Settings</a>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>Cyber Security</h2>
+        <p>Advanced penetration testing tools and network monitoring modules.</p>
+    </div>
+    <div class="card">
+        <h2>Developer Hub</h2>
+        <p>Write, debug, and deploy your code directly from the dashboard.</p>
+    </div>
+    <div class="card">
+        <h2>Gaming Corner</h2>
+        <p>Optimized performance settings and game library access.</p>
+    </div>
+    <div class="card">
+        <h2>Editor Suite</h2>
+        <p>Video and graphic editing tools for the modern creator.</p>
+    </div>
+</div>
+
+</body>
+</html>
+
