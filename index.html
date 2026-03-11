@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT GAMER | ULTIMATE DASHBOARD</title>
+    <title>FT GAMER | ULTIMATE SECURITY DASHBOARD</title>
     
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
@@ -12,6 +13,7 @@
     <style>
         :root {
             --neon: #00ff41;
+            --off: #333;
             --bg: #050505;
             --glass: rgba(255, 255, 255, 0.05);
         }
@@ -22,12 +24,6 @@
             color: var(--neon);
             font-family: 'Fira Code', monospace;
             overflow-x: hidden;
-        }
-
-        /* MATRIX BACKGROUND */
-        #matrix-canvas {
-            position: fixed; top: 0; left: 0;
-            z-index: -1; opacity: 0.15;
         }
 
         /* GLASS LAYOUT */
@@ -48,6 +44,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
+            margin-bottom: 20px;
         }
 
         .card {
@@ -56,6 +53,7 @@
             padding: 20px;
             backdrop-filter: blur(5px);
             transition: 0.3s;
+            overflow: hidden; /* For images */
         }
 
         .card:hover {
@@ -63,17 +61,38 @@
             box-shadow: 0 0 15px var(--neon);
         }
 
-        /* TERMINAL STYLE */
-        .terminal {
-            background: #000;
-            height: 200px;
-            overflow-y: auto;
-            padding: 10px;
-            font-size: 0.85rem;
-            border: 1px inset #333;
-            margin-top: 10px;
+        .card h3 { color: #fff; margin-bottom: 15px; border-left: 3px solid var(--neon); padding-left: 10px; }
+
+        /* --- MOVING PICTURES --- */
+        .moving-img-container {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
         }
 
+        .moving-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Yahan animation dala hai */
+            animation: moveSlow 20s linear infinite, pulseSlow 15s ease-in-out infinite;
+        }
+
+        @keyframes moveSlow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulseSlow {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
+        /* --- Input & Button --- */
         .input-hack {
             background: transparent;
             border: 1px solid var(--neon);
@@ -83,7 +102,7 @@
             margin-bottom: 10px;
         }
 
-        button {
+        .btn-op {
             background: var(--neon);
             color: #000;
             border: none;
@@ -91,6 +110,23 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
+            transition: 0.2s;
+        }
+        .btn-op:hover {
+            background: #fff;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        /* --- Common Terminal --- */
+        .terminal {
+            background: #000;
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            font-size: 0.85rem;
+            border: 1px inset var(--neon);
+            margin-top: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.5);
         }
 
         .status-bar {
@@ -103,101 +139,99 @@
 </head>
 <body>
 
-    <canvas id="matrix-canvas"></canvas>
-
     <div class="container">
         <header>
-            <h1>[ FT-GAMER CENTRAL COMMAND ]</h1>
-            <p>Welcome, Agent Piyush. Unauthorized access is strictly logged.</p>
+            <h1>[ FT-GAMER GOD-TIER DASHBOARD ]</h1>
+            <p>Welcome, Master Agent Piyush. Command system initialized.</p>
         </header>
 
         <div class="grid">
+            
             <div class="card">
-                <h3>01. PYTHON ENCRYPTION LAB</h3>
-                <p>Test data security levels:</p>
-                <input type="text" id="target-data" class="input-hack" placeholder="Enter string to encrypt...">
-                <button py-click="run_analysis">RUN ANALYSIS</button>
-                <div id="py-output" class="terminal">Awaiting input...</div>
+                <h3>01. CYBER CODE CHECKER [Python]</h3>
+                <div class="moving-img-container">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=500" alt="Python Cyber" class="moving-img">
+                </div>
+                <p>Test your cyber protocols (password simulation):</p>
+                <input type="text" id="target-data" class="input-hack" placeholder="Enter cyber string to test...">
+                <button py-click="run_cyber_check" class="btn-op">RUN ANALYSIS</button>
             </div>
 
             <div class="card">
-                <h3>02. NETWORK SCANNER</h3>
-                <p>Simulate local network penetration:</p>
-                <button onclick="startScan()">INITIALIZE SCAN</button>
-                <div id="scan-output" class="terminal">Scanner Offline.</div>
+                <h3>02. WEB CREATION HUB</h3>
+                <div class="moving-img-container">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=500" alt="WebDev" class="moving-img">
+                </div>
+                <p>Master the front-end UI interface.</p>
+                <button class="btn-op" style="background:var(--off); color:white;">ACCESS HUB</button>
             </div>
+        </div>
+
+        <div class="card" style="width: 100%; margin-top: 20px; background: rgba(0,0,0,0.8);">
+            <h3>03. LIVE SYSTEM TERMINAL</h3>
+            <div id="py-output" class="terminal">Awaiting Command...</div>
         </div>
     </div>
 
     <div class="status-bar">
-        <span>USER: PIYUSH_V4.0</span>
-        <span>LOCATION: ENCRYPTED</span>
+        <span>USER: PIYUSH_MASTER_V4.0</span>
+        <span>LOCATION: ENCRYPTED_SERVER_FTG</span>
         <span id="clock"></span>
     </div>
 
     <script>
-        // Matrix Effect
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#0F0";
-            ctx.font = fontSize + "px monospace";
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 50);
-
-        // Network Scanner Simulation
-        function startScan() {
-            const out = document.getElementById('scan-output');
-            out.innerHTML = "> Probing Ports...<br>";
-            let ports = [21, 22, 80, 443, 8080];
-            ports.forEach((p, i) => {
-                setTimeout(() => {
-                    out.innerHTML += `> Port ${p}: <span style="color:red">VULNERABLE</span><br>`;
-                }, i * 500);
-            });
-        }
-
         // Clock
         setInterval(() => {
             document.getElementById('clock').innerText = new Date().toLocaleTimeString();
         }, 1000);
+
+        // Terminal focus/reveal when button is clicked (from user prompt)
+        function revealTerminal() {
+            const out = document.getElementById('py-output');
+            out.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            out.classList.add('terminal-active'); // For extra effects if needed
+        }
     </script>
 
     <script type="py">
-        from pyscript import document
-        import random
+        from pyscript import document, window
 
-        def run_analysis(event):
+        def run_cyber_check(event):
+            # 1. Input/Output handles
             data = document.getElementById("target-data").value
             out = document.getElementById("py-output")
             
             if not data:
-                out.innerHTML = "!! ERROR: NO DATA !!"
+                out.innerHTML = "!! ERROR: NO CYBER PROTOCOL DATA FOUND !!"
                 return
             
-            # Simulated Python Logic
-            out.innerHTML = f"Analyzing: {data}...<br>"
-            entropy = len(set(data)) / len(data) if len(data) > 0 else 0
+            # JS handle to focus terminal (from prompt)
+            window.revealTerminal()
+
+            out.innerHTML = f"> Initializing Cyber Check: Protocol {data.upper()}<br>"
             
-            out.innerHTML += f"> Entropy Level: {entropy:.2f}<br>"
-            out.innerHTML += "> Generating Hash...<br>"
-            out.innerHTML += f"> Hash: {hash(data)}<br>"
-            out.innerHTML += "<br><span style='color:white'>RESULT: " + ("SECURE" if entropy > 0.5 else "WEAK") + "</span>"
+            # 2. Re-implementing old mixed logic
+            length = len(data)
+            out.innerHTML += f"> Analysis in progress...<br>"
+            out.innerHTML += f"> Data stream size: {length}<br>"
+            out.innerHTML += "> Brute-force simulation start...<br>"
+            out.innerHTML += "<br>[||||||----] 60%..."
+            
+            # 3. Old Password logic for result
+            if length < 4:
+                msg = "❌ SYSTEM VULNERABLE: Attack sequence successful."
+                color = "#ff4141" # Red
+            elif data.isalpha(): # Simple letters
+                msg = "⚠️ WARNING: Low encryption detected. Brute-force simulation completed."
+                color = "#ffbb00" # Orange
+            else: # Strong password
+                msg = "✅ SYSTEM ENCRYPTED: High-level protocol active. Access Denied."
+                color = "#00ff41" # Green
+            
+            # 4. Result output with delay simulation
+            out.innerHTML += "<br><br><span style='color:white; font-size: 1rem;'>RESULT:</span><br>"
+            out.innerHTML += f"<span style='color:{color}; font-weight:bold;'>{msg}</span>"
+            out.innerHTML += "<br>> Terminating simulation."
     </script>
 
 </body>
