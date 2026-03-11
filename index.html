@@ -3,211 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT GAMER | MEGA DASHBOARD V5.0</title>
+    <title>FT GAMER | PRO HACKER DASHBOARD</title>
     
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Fira+Code&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --neon-pink: #ff00ff;
             --neon-blue: #00d2ff;
             --neon-green: #00ff41;
-            --bg: #050505;
+            --glass: rgba(0, 0, 0, 0.85);
         }
 
         body {
-            background: linear-gradient(45deg, #050505, #1a0033);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: #050505;
             color: white;
             font-family: 'Orbitron', sans-serif;
             margin: 0; padding: 0;
-            transition: transform 0.3s ease; /* For Settings Zoom */
+            overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- TOP NAV BAR --- */
-        .top-nav {
+        /* --- NAVIGATION --- */
+        .top-bar {
+            background: black; padding: 15px 40px;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 30px; background: rgba(0,0,0,0.8);
-            border-bottom: 2px solid var(--neon-blue);
-            position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--neon-pink);
         }
 
-        .search-bar {
-            background: #111; border: 1px solid var(--neon-blue);
-            padding: 8px; color: white; width: 250px; border-radius: 5px;
+        /* --- GAMING ARENA (POKI STYLE) --- */
+        .section-title { padding: 20px 40px; color: var(--neon-blue); font-size: 1.5rem; text-transform: uppercase; }
+        
+        .game-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; padding: 0 40px 40px;
         }
 
-        .settings-btn {
-            cursor: pointer; font-size: 20px; color: var(--neon-blue);
+        .game-card {
+            background: #111; border-radius: 12px; overflow: hidden;
+            border: 1px solid #333; transition: 0.4s; cursor: pointer;
         }
 
-        /* --- GRID SYSTEM --- */
-        .main-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; padding: 30px;
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--neon-pink);
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.3);
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--off);
-            border-radius: 15px; padding: 15px;
-            transition: 0.3s; position: relative;
-            overflow: hidden;
+        .game-card img { width: 100%; height: 150px; object-fit: cover; transition: 0.5s; }
+        .game-card:hover img { filter: contrast(1.2) brightness(1.2); }
+        .game-info { padding: 10px; text-align: center; font-size: 0.8rem; background: #1a1a1a; }
+
+        /* --- CODE COMPILER SECTION --- */
+        #code-editor-panel {
+            display: none; position: fixed; top: 10%; left: 10%; width: 80%; height: 80%;
+            background: var(--glass); border: 2px solid var(--neon-blue);
+            z-index: 2000; padding: 20px; backdrop-filter: blur(15px);
         }
 
-        .card:hover {
-            transform: scale(1.05);
-            border-color: var(--color);
-            box-shadow: 0 0 20px var(--color);
+        #python-input {
+            width: 100%; height: 60%; background: #000; color: var(--neon-green);
+            font-family: 'Fira Code', monospace; padding: 15px; border: 1px solid #444;
+            font-size: 1.1rem; resize: none;
         }
 
-        .card img {
-            width: 100%; height: 120px; object-fit: cover;
-            border-radius: 10px; margin-bottom: 10px;
-            animation: pulse 5s infinite;
+        /* --- ACTION BUTTONS --- */
+        .footer-actions {
+            display: flex; justify-content: center; gap: 30px; padding: 50px;
+            background: linear-gradient(transparent, #110022);
         }
 
-        @keyframes pulse {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.5); }
-            100% { filter: brightness(1); }
+        .btn-main {
+            padding: 20px 40px; font-size: 18px; font-weight: bold; cursor: pointer;
+            text-transform: uppercase; border-radius: 5px; transition: 0.3s;
         }
 
-        /* --- OPERATION BUTTON --- */
-        .start-btn-container { text-align: center; padding: 40px; }
-        .op-btn {
-            background: transparent; color: var(--neon-green);
-            border: 3px solid var(--neon-green);
-            padding: 20px 50px; font-size: 24px; font-weight: bold;
-            cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 0 15px var(--neon-green);
-            transition: 0.3s;
-        }
-        .op-btn:hover {
-            background: var(--neon-green); color: black;
-            box-shadow: 0 0 40px var(--neon-green);
-        }
+        .start-btn { border: 2px solid var(--neon-green); color: var(--neon-green); background: transparent; }
+        .start-btn:hover { background: var(--neon-green); color: black; box-shadow: 0 0 30px var(--neon-green); }
 
-        /* --- HIDDEN TERMINAL POPUP --- */
-        #terminal-overlay {
-            display: none; position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%; height: 60%;
-            background: rgba(0,0,0,0.95);
-            border: 3px solid var(--neon-blue);
-            z-index: 1000; padding: 20px;
-            box-shadow: 0 0 100px black;
-        }
+        .write-btn { border: 2px solid var(--neon-blue); color: var(--neon-blue); background: transparent; }
+        .write-btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 30px var(--neon-blue); }
 
-        .terminal-header { display: flex; justify-content: space-between; color: var(--neon-blue); margin-bottom: 10px;}
-        .term-content { font-family: 'Fira Code', monospace; color: var(--neon-green); overflow-y: auto; height: 90%; }
-
-        /* --- SETTINGS PANEL --- */
-        #settings-panel {
-            display: none; position: absolute; right: 30px; top: 70px;
-            background: #222; padding: 20px; border: 1px solid var(--neon-blue); z-index: 101;
+        /* --- LOG TERMINAL --- */
+        #log-terminal {
+            background: black; color: var(--neon-green); height: 25%;
+            margin-top: 10px; padding: 10px; border: 1px solid #333; overflow-y: auto;
+            font-family: 'Fira Code', monospace;
         }
     </style>
 </head>
-<body id="main-body">
+<body>
 
-    <nav class="top-nav">
-        <div style="font-size: 22px; color: var(--neon-pink);">FT GAMER 4.0</div>
-        <input type="text" class="search-bar" placeholder="Search systems...">
-        <div class="settings-btn" onclick="toggleSettings()">⚙️ SETTINGS</div>
+    <nav class="top-bar">
+        <div style="font-weight: 900; letter-spacing: 2px; color: var(--neon-pink);">FT GAMER V6.0</div>
+        <div style="font-family: monospace; color: #555;">[ AUTH: PIYUSH_DEV ]</div>
     </nav>
 
-    <div id="settings-panel">
-        <p>Site Scale:</p>
-        <button onclick="changeScale(0.8)">Small</button>
-        <button onclick="changeScale(1.0)">Normal</button>
-        <button onclick="changeScale(1.2)">Large</button>
-    </div>
-
-    <div class="main-grid">
-        <div class="card" style="--color: var(--neon-pink);">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=500">
-            <h3>LEARN PYTHON</h3>
-            <p>Master AI & Automation.</p>
-            <button class="btn-op">ENTER LAB</button>
+    <div class="section-title">Popular Gaming Zone</div>
+    <div class="game-grid">
+        <div class="game-card">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400" alt="Warzone">
+            <div class="game-info">CYBER WARFARE</div>
         </div>
-
-        <div class="card" style="--color: var(--neon-blue);">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500">
-            <h3>GAMING SKILLS</h3>
-            <p>Aim training & Strategy.</p>
-            <button class="btn-op">LEVEL UP</button>
+        <div class="game-card">
+            <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=400" alt="Racing">
+            <div class="game-info">NITRO DRIFT</div>
         </div>
-
-        <div class="card" style="--color: var(--neon-green);">
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=500">
-            <h3>TRY TO HACK ME</h3>
-            <p>Test your defensive skills.</p>
-            <input type="text" id="hack-input" style="width:90%; background:black; color:white; border:1px solid lime;" placeholder="Enter target...">
+        <div class="game-card">
+            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=400" alt="Shadow">
+            <div class="game-info">SHADOW STRIKE</div>
         </div>
-
-        <div class="card" style="--color: #ffaa00;">
-            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500">
-            <h3>MODS ARENA</h3>
-            <p>Premium game files.</p>
-            <button class="btn-op">DOWNLOAD</button>
+        <div class="game-card">
+            <img src="https://images.unsplash.com/photo-1614027164847-1b2809eb189d?q=80&w=400" alt="Minecraft">
+            <div class="game-info">PIXEL BUILDER</div>
         </div>
     </div>
 
-    <div class="start-btn-container">
-        <button class="op-btn" onclick="openTerminal()">🚀 START OPERATION</button>
+    <div class="footer-actions">
+        <button class="btn-main start-btn" onclick="openOps()">Start Operation</button>
+        <button class="btn-main write-btn" onclick="openCompiler()">Write Code</button>
     </div>
 
-    <div id="terminal-overlay">
-        <div class="terminal-header">
-            <span>SYSTEM_CORE_EXECUTOR</span>
-            <span style="cursor:pointer;" onclick="closeTerminal()">[X] CLOSE</span>
+    <div id="code-editor-panel">
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span style="color:var(--neon-blue)">PYTHON INTERPRETER V1.0</span>
+            <span style="color:red; cursor:pointer;" onclick="closeCompiler()">[ CLOSE ]</span>
         </div>
-        <div id="term-body" class="term-content">
-            Ready to execute... Click "RUN" inside a module to see logs.
-        </div>
+        <textarea id="python-input" placeholder="# Write your Python code here...&#10;print('Hello Piyush!')"></textarea>
+        <button py-click="execute_user_code" style="width:100%; padding:15px; margin-top:10px; background:var(--neon-green); border:none; cursor:pointer; font-weight:bold;">EXECUTE SCRIPT</button>
+        <div id="log-terminal">>> Awaiting Execution...</div>
     </div>
 
     <script>
-        function openTerminal() { document.getElementById('terminal-overlay').style.display = 'block'; }
-        function closeTerminal() { document.getElementById('terminal-overlay').style.display = 'none'; }
-        function toggleSettings() { 
-            let p = document.getElementById('settings-panel');
-            p.style.display = p.style.display === 'block' ? 'none' : 'block';
-        }
-        function changeScale(val) {
-            document.getElementById('main-body').style.transform = `scale(${val})`;
-            document.getElementById('main-body').style.transformOrigin = 'top center';
-        }
+        function openCompiler() { document.getElementById('code-editor-panel').style.display = 'block'; }
+        function closeCompiler() { document.getElementById('code-editor-panel').style.display = 'none'; }
+        function openOps() { alert("Operation Center Initialized. Please use the Code Editor to inject scripts."); }
     </script>
 
     <script type="py">
         from pyscript import document
-        import time
 
-        def run_hack_demo(event):
-            out = document.getElementById("term-body")
-            document.getElementById('terminal-overlay').style.display = 'block'
-            target = document.getElementById("hack-input").value
+        def execute_user_code(event):
+            user_code = document.getElementById("python-input").value
+            terminal = document.getElementById("log-terminal")
             
-            out.innerHTML = f"> INITIALIZING ATTACK ON: {target}...<br>"
-            out.innerHTML += "> LOADING PYTHON EXPLOITS...<br>"
-            out.innerHTML += "> BYPASSING FIREWALL... [DONE]<br>"
-            out.innerHTML += f"> SUCCESS: {target} HAS BEEN SIMULATED!"
-
-        # Linking Python function (conceptual)
+            terminal.innerHTML = "> Executing User Script...<br>"
+            
+            try:
+                # DANGER: Running exec() for simulation
+                # In a real app we'd use a safer way, but for school project this is OP!
+                exec(user_code)
+                terminal.innerHTML += "> [SUCCESS] Script finished without errors."
+            except Exception as e:
+                terminal.innerHTML += f"<span style='color:red'>> [ERROR] {str(e)}</span>"
     </script>
+
 </body>
 </html>
-
 
