@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FT Gamer</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#0b0f1a;
+color:white;
+}
+
+/* HEADER */
+
+.header{
+text-align:center;
+padding:30px 20px;
+}
+
+.header img{
+width:120px;
+border-radius:50%;
+border:3px solid #00f2ff;
+}
+
+.header h1{
+margin-top:15px;
+font-size:32px;
+color:#00f2ff;
+}
+
+/* TOP BAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#121a2b;
+box-shadow:0 2px 10px rgba(0,0,0,0.6);
+}
+
+.searchbar input{
+width:300px;
+padding:10px;
+border:none;
+border-radius:6px;
+outline:none;
+}
+
+/* MENU */
+
+.menu{
+position:relative;
+font-size:26px;
+cursor:pointer;
+}
+
+.dropdown{
+display:none;
+position:absolute;
+right:0;
+top:35px;
+background:#1b2338;
+padding:15px;
+border-radius:10px;
+width:200px;
+box-shadow:0 5px 15px rgba(0,0,0,0.7);
+}
+
+.menu:hover .dropdown{
+display:block;
+}
+
+.profile{
+display:flex;
+align-items:center;
+margin-bottom:10px;
+}
+
+.profile img{
+width:40px;
+border-radius:50%;
+margin-right:10px;
+}
+
+.dropdown p{
+margin:8px 0;
+cursor:pointer;
+}
+
+/* GAMES SECTION */
+
+.games{
+padding:40px;
+}
+
+.games h2{
+margin-bottom:20px;
+font-size:28px;
+color:#00f2ff;
+}
+
+.game-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.game-card{
+background:#151d30;
+border-radius:10px;
+overflow:hidden;
+transition:0.3s;
+}
+
+.game-card:hover{
+transform:scale(1.05);
+}
+
+.game-card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.game-card h3{
+padding:10px;
+}
+
+.download{
+display:block;
+text-align:center;
+background:#00f2ff;
+color:black;
+padding:10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+<img src="https://i.imgur.com/3ZQ3Z6F.png">
+<h1>Created by FT Gamer</h1>
+</div>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+<div class="searchbar">
+<input type="text" placeholder="Search games or large files...">
+</div>
+
+<div class="menu">
+
+⋮
+
+<div class="dropdown">
+
+<div class="profile">
+<img src="https://i.imgur.com/3ZQ3Z6F.png">
+<span>FT Gamer</span>
+</div>
+
+<p>Profile</p>
+<p>Settings</p>
+<p>Upload File</p>
+<p>Logout</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- GAMES SECTION -->
+
+<div class="games">
+
+<h2>Popular Games</h2>
+
+<div class="game-grid">
+
+<div class="game-card">
+<img src="https://images.unsplash.com/photo-1511512578047-dfb367046420">
+<h3>Cyber Battle</h3>
+<a class="download" href="#">Download</a>
+</div>
+
+<div class="game-card">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+<h3>War Zone</h3>
+<a class="download" href="#">Download</a>
+</div>
+
+<div class="game-card">
+<img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1">
+<h3>Racing X</h3>
+<a class="download" href="#">Download</a>
+</div>
+
+<div class="game-card">
+<img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f">
+<h3>Shadow Fight</h3>
+<a class="download" href="#">Download</a>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
