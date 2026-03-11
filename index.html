@@ -3,261 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT Gamer | Managed by Piyush</title>
+    <title>FT GAMER | ULTIMATE DASHBOARD</title>
     
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --neon-blue: #00f2ff;
-            --neon-green: #00ff41;
-            --neon-purple: #bc13fe;
-            --bg-dark: #0a0b10;
-            --card-bg: #151d30;
+            --neon: #00ff41;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg-dark); 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        body, html {
+            margin: 0; padding: 0;
+            background: var(--bg);
+            color: var(--neon);
+            font-family: 'Fira Code', monospace;
             overflow-x: hidden;
         }
 
-        /* --- GOD LEVEL HEADER --- */
-        .top-nav {
-            background: rgba(18, 26, 43, 0.95);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--neon-blue);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        /* MATRIX BACKGROUND */
+        #matrix-canvas {
+            position: fixed; top: 0; left: 0;
+            z-index: -1; opacity: 0.15;
         }
 
-        .logo-area h1 {
-            font-size: 24px;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
+        /* GLASS LAYOUT */
+        .container {
+            max-width: 1200px; margin: 0 auto; padding: 20px;
         }
 
-        .creator-tag {
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
-            font-size: 1.2rem;
+        header {
+            text-align: center; padding: 40px;
+            border: 1px solid var(--neon);
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
         }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 400px;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2070');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* --- FEATURE GRID --- */
-        .main-container { padding: 50px 8%; }
-        .section-title { color: var(--neon-blue); margin-bottom: 30px; font-size: 2rem; border-left: 5px solid var(--neon-blue); padding-left: 15px; }
-
-        .feature-grid {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
         }
 
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: 0.4s;
-            border: 1px solid #222;
+        .card {
+            background: var(--glass);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 20px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-blue);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.3);
+        .card:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 15px var(--neon);
         }
 
-        .feature-card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-content { padding: 20px; }
-        .card-content h3 { margin-bottom: 10px; color: var(--neon-blue); }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--neon-blue);
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+        /* TERMINAL STYLE */
+        .terminal {
+            background: #000;
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            font-size: 0.85rem;
+            border: 1px inset #333;
             margin-top: 10px;
         }
 
-        /* --- HACKING TERMINAL AREA --- */
-        .terminal-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            background: #000;
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #333;
+        .input-hack {
+            background: transparent;
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
         }
 
-        .terminal-box {
-            background: #050505;
-            border: 1px solid #00ff41;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            min-height: 250px;
+        button {
+            background: var(--neon);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
         }
 
-        .term-head { color: #00ff41; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 15px; }
-        .hack-input { background: #111; border: 1px solid #00ff41; color: #00ff41; padding: 10px; width: 70%; }
-        #output, #java-output { margin-top: 15px; font-size: 14px; line-height: 1.5; color: #00ff41; }
-
-        @media (max-width: 768px) {
-            .terminal-container { grid-template-columns: 1fr; }
+        .status-bar {
+            position: fixed; bottom: 0; width: 100%;
+            background: var(--neon); color: #000;
+            font-size: 12px; padding: 5px 20px;
+            display: flex; justify-content: space-between;
         }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div class="logo-area">
-            <h1>FT GAMER <span class="creator-tag">Created by Piyush</span></h1>
-        </div>
-        <div style="color: var(--neon-blue); font-family: monospace;">
-            [ SYSTEM STATUS: OPTIMAL ]
-        </div>
-    </nav>
+    <canvas id="matrix-canvas"></canvas>
 
-    <header class="hero">
-        <h2 style="font-size: 3rem; text-shadow: 0 0 20px black;">MASTER THE DIGITAL REALM</h2>
-        <p style="font-size: 1.2rem; color: #ccc;">Gaming | Development | Cybersecurity</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>[ FT-GAMER CENTRAL COMMAND ]</h1>
+            <p>Welcome, Agent Piyush. Unauthorized access is strictly logged.</p>
+        </header>
 
-    <div class="main-container">
-        
-        <h2 class="section-title">Gaming Arena</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500" alt="Games">
-                <div class="card-content">
-                    <h3>Popular Games</h3>
-                    <p>Access high-performance mods and game files.</p>
-                    <a href="#" class="btn">Explore Arena</a>
-                </div>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500" alt="Skills">
-                <div class="card-content">
-                    <h3>Gaming Skills</h3>
-                    <p>Learn mechanics, strategy, and aim training.</p>
-                    <a href="#" class="btn">Level Up</a>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Development Lab</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=500" alt="WebDev">
-                <div class="card-content">
-                    <h3>Website Creation</h3>
-                    <p>Master HTML5, CSS3, and JavaScript God-tier UI.</p>
-                    <a href="#" class="btn">Start Building</a>
-                </div>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=500" alt="Python">
-                <div class="card-content">
-                    <h3>Python Mastery</h3>
-                    <p>From basics to AI and Automation scripts.</p>
-                    <a href="#" class="btn">Learn Python</a>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Cyber Operations</h2>
-        <div class="terminal-container">
-            
-            <div class="terminal-box">
-                <div class="term-head">PIYUSH_SEC_TOOL [Python]</div>
-                <p>Simple Brute-Force Simulation:</p>
-                <input type="text" id="pass-in" class="hack-input" placeholder="Enter 3-letter target">
-                <button py-click="start_hack" style="padding: 10px; background: #00ff41; color: black; border: none; cursor: pointer; font-weight: bold;">ATTACK</button>
-                <div id="output">System Ready...</div>
+        <div class="grid">
+            <div class="card">
+                <h3>01. PYTHON ENCRYPTION LAB</h3>
+                <p>Test data security levels:</p>
+                <input type="text" id="target-data" class="input-hack" placeholder="Enter string to encrypt...">
+                <button py-click="run_analysis">RUN ANALYSIS</button>
+                <div id="py-output" class="terminal">Awaiting input...</div>
             </div>
 
-            <div class="terminal-box" style="border-color: #bc13fe; color: #bc13fe;">
-                <div class="term-head" style="color: #bc13fe; border-color: #331044;">JAR_DECOMPILER [Java]</div>
-                <p>Simulate Bytecode Extraction:</p>
-                <button onclick="runJava()" style="padding: 10px; background: #bc13fe; color: white; border: none; cursor: pointer; font-weight: bold;">DECOMPILE</button>
-                <div id="java-output">Awaiting JAR input...</div>
+            <div class="card">
+                <h3>02. NETWORK SCANNER</h3>
+                <p>Simulate local network penetration:</p>
+                <button onclick="startScan()">INITIALIZE SCAN</button>
+                <div id="scan-output" class="terminal">Scanner Offline.</div>
             </div>
-
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 40px; border-top: 1px solid #222; color: #555;">
-        &copy; 2026 FT GAMER | Authored by Piyush | School Project Ver 4.0
-    </footer>
+    <div class="status-bar">
+        <span>USER: PIYUSH_V4.0</span>
+        <span>LOCATION: ENCRYPTED</span>
+        <span id="clock"></span>
+    </div>
 
     <script>
-        function runJava() {
-            const out = document.getElementById('java-output');
-            const lines = [
-                "> Loading class: com.piyush.exploit",
-                "> Decompiling bytecode...",
-                "public void execute() {",
-                "  Runtime.getRuntime().exec('/bin/bash');",
-                "  System.out.println('Bypass Active');",
-                "}",
-                "> SUCCESS: Source code recovered."
-            ];
-            out.innerHTML = "";
-            let i = 0;
-            const interval = setInterval(() => {
-                if(i < lines.length) {
-                    out.innerHTML += lines[i] + "<br>";
-                    i++;
-                } else { clearInterval(interval); }
-            }, 300);
+        // Matrix Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
         }
+        setInterval(drawMatrix, 50);
+
+        // Network Scanner Simulation
+        function startScan() {
+            const out = document.getElementById('scan-output');
+            out.innerHTML = "> Probing Ports...<br>";
+            let ports = [21, 22, 80, 443, 8080];
+            ports.forEach((p, i) => {
+                setTimeout(() => {
+                    out.innerHTML += `> Port ${p}: <span style="color:red">VULNERABLE</span><br>`;
+                }, i * 500);
+            });
+        }
+
+        // Clock
+        setInterval(() => {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+        }, 1000);
     </script>
 
     <script type="py">
         from pyscript import document
-        import string
-        import itertools
+        import random
 
-        def start_hack(event):
-            target = document.getElementById("pass-in").value.lower()
-            out = document.getElementById("output")
-            out.innerHTML = "Initializing attack sequence...<br>"
+        def run_analysis(event):
+            data = document.getElementById("target-data").value
+            out = document.getElementById("py-output")
             
-            chars = string.ascii_lowercase
-            for length in range(1, 4):
-                for guess in itertools.product(chars, repeat=length):
-                    current = "".join(guess)
-                    if current == target:
-                        out.innerHTML += f"CRACKED: Password is '{current.upper()}'<br>Access Granted."
-                        return
-            out.innerHTML += "Target too complex for local trial."
+            if not data:
+                out.innerHTML = "!! ERROR: NO DATA !!"
+                return
+            
+            # Simulated Python Logic
+            out.innerHTML = f"Analyzing: {data}...<br>"
+            entropy = len(set(data)) / len(data) if len(data) > 0 else 0
+            
+            out.innerHTML += f"> Entropy Level: {entropy:.2f}<br>"
+            out.innerHTML += "> Generating Hash...<br>"
+            out.innerHTML += f"> Hash: {hash(data)}<br>"
+            out.innerHTML += "<br><span style='color:white'>RESULT: " + ("SECURE" if entropy > 0.5 else "WEAK") + "</span>"
     </script>
 
 </body>
 </html>
-
